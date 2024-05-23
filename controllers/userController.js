@@ -75,13 +75,13 @@ exports.updateUser = [
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json(errors);
-    return res.json(await User.findByIdAndUpdate(req.params['_id'], {
+    return res.status({returnDocument: 'after'}).json(await User.findByIdAndUpdate(req.params['_id'], {
       first_name: req.body['first-name'],
       last_name: req.body['last-name'],
       email: req.body['email'],
       password: req.body['password'],
       type: req.body['type']
-    }, {returnDocument: 'after'}));
+    }));
   }
 ]
 
